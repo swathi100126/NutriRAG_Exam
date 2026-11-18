@@ -47,6 +47,4 @@ A public URL with no login needs your own GitHub repository and a [Streamlit Com
 GROQ_API_KEY = "your_groq_key_here"
 ```
 
-The app reads that secret when the environment variable is empty. The free Cloud tier has a small memory limit. This app loads a sentence-transformer model for search, so the first Cloud deploy can run out of memory. If that happens, say so and the search step can be switched to a lighter index over the same PDFs. Local use does not depend on that change.
-
-Screenshots for the exam are in `screenshots/`. The prompt log and test note are in `SUBMISSION.md`.
+The app reads that secret when the environment variable is empty. The free Cloud tier has a small memory limit. This app loads a sentence-transformer model for search, so the first Cloud deploy can run out of memory. If that happens, the search step can be switched to a lighter index over the same PDFs. Local use does not depend on that change.
