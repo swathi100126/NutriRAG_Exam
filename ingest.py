@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 import chromadb
@@ -89,25 +88,6 @@ def store_in_chromadb(chunks, embeddings, source):
         embeddings=embeddings,
         metadatas=metadatas
     )
-def ingest_documents():
-    documents = get_all_documents()
-
-    for document in documents:
-
-        text = document["text"]
-
-        source = document["source"]
-
-        chunks = split_text(text)
-
-        embeddings = create_embeddings(chunks)
-
-        store_in_chromadb(chunks, embeddings, source)
-
-        print(f"Processed: {source}")
-
-    print("All documents processed successfully!")
-
 def ingest_documents():
 
     documents = get_all_documents()

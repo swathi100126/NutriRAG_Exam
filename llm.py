@@ -1,12 +1,23 @@
 from groq import Groq
 
-from config import GROQ_API_KEY
-client = Groq(
-    api_key=GROQ_API_KEY
-)
-def generate_response(prompt):
+from config import resolve_groq_api_key
 
-    response = client.chat.completions.create(
+_client = None
+
+
+def generate_response(prompt):
+    global _client
+
+    api_key = resolve_groq_api_key()
+    if not api_key:
+        raise RuntimeError(
+            "GROQ_API_KEY is not set. Add it to a .env file or to Streamlit secrets."
+        )
+
+    if _client is None:
+        _client = Groq(api_key=api_key)
+
+    response = _client.chat.completions.create(
         model="openai/gpt-oss-120b",
         messages=[
             {"role": "user", "content": prompt}
@@ -15,6 +26,8 @@ def generate_response(prompt):
     )
 
     return response.choices[0].message.content
+
+
 if __name__ == "__main__":
     question = input("Ask your question: ")
     answer = generate_response(question)
